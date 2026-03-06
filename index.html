@@ -1037,6 +1037,60 @@
     margin-top: 16px;
   }
 
+  /* INSTAGRAM FLOAT BUTTON */
+  .ig-float {
+    position: fixed;
+    bottom: 36px;
+    right: 36px;
+    z-index: 500;
+    background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.15em;
+    box-shadow: 0 8px 32px rgba(220,39,67,0.4);
+    transition: transform 0.2s, box-shadow 0.2s, opacity 0.3s;
+    cursor: none;
+    animation: ig-pulse 3s ease-in-out infinite;
+  }
+  .ig-float:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 16px 48px rgba(220,39,67,0.6);
+  }
+  .ig-float.hidden { opacity: 0; pointer-events: none; }
+  .ig-float-icon { font-size: 1.1rem; line-height: 1; }
+  @keyframes ig-pulse {
+    0%, 100% { box-shadow: 0 8px 32px rgba(220,39,67,0.4); }
+    50% { box-shadow: 0 8px 48px rgba(220,39,67,0.7), 0 0 0 6px rgba(220,39,67,0.1); }
+  }
+  .ig-hero-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 8px 16px;
+    border-radius: 50px;
+    margin-top: 20px;
+    transition: all 0.2s;
+    cursor: none;
+  }
+  .ig-hero-link:hover {
+    color: white;
+    border-color: rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.05);
+  }
+
   /* RESPONSIVE */
   @media (max-width: 900px) {
     nav { padding: 16px 20px; }
@@ -1094,6 +1148,9 @@
       <a href="#merch" class="btn-primary">Ver Merch</a>
       <a href="#equipos" class="btn-secondary">Nuestros Equipos</a>
     </div>
+    <a href="https://www.instagram.com/pezonerosteam/" target="_blank" class="ig-hero-link">
+      <span>📸</span> @pezonerosteam
+    </a>
   </div>
 
   <div class="scroll-indicator">
@@ -1469,13 +1526,18 @@
   <div class="footer-bottom">
     <p class="footer-copy">© 2025 PEZONEROS — EST. 2016 — TODOS LOS DERECHOS RESERVADOS</p>
     <div class="footer-socials">
-      <a class="social-link" title="Instagram">📸</a>
+      <a class="social-link" href="https://www.instagram.com/pezonerosteam/" target="_blank" title="Instagram @pezonerosteam">📸</a>
       <a class="social-link" title="TikTok">🎵</a>
       <a class="social-link" title="Twitter">🐦</a>
       <a class="social-link" title="Twitch">🟣</a>
     </div>
   </div>
 </footer>
+
+<!-- INSTAGRAM FLOAT -->
+<a href="https://www.instagram.com/pezonerosteam/" target="_blank" class="ig-float" id="igFloat">
+  <span class="ig-float-icon">📸</span> @pezonerosteam
+</a>
 
 <script>
   // CURSOR
@@ -1615,6 +1677,18 @@ if (navShield) { navShield.src = 'escudo.png'; navShield.style.display = 'block'
   // NOTE FOR DEPLOYMENT: To use the real PNG shield, replace the two lines above with:
   // if (logoImg) logoImg.src = 'escudo.png';
   // if (navShield) { navShield.src = 'escudo.png'; navShield.style.display = 'block'; }
+  // HIDE INSTAGRAM BUTTON NEAR FOOTER
+  const igFloat = document.getElementById('igFloat');
+  window.addEventListener('scroll', () => {
+    const footer = document.querySelector('footer');
+    if (!footer || !igFloat) return;
+    const footerTop = footer.getBoundingClientRect().top;
+    if (footerTop < window.innerHeight) {
+      igFloat.classList.add('hidden');
+    } else {
+      igFloat.classList.remove('hidden');
+    }
+  });
 </script>
 </body>
 </html>
