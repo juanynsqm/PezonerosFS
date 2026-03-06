@@ -1213,6 +1213,60 @@
     .waitlist-input-group { flex-direction: column; }
     .merch-header { flex-direction: column; gap: 20px; align-items: flex-start; }
   }
+
+  /* HAMBURGER MENU */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 200;
+    background: none;
+    border: none;
+  }
+  .hamburger span {
+    display: block;
+    width: 26px;
+    height: 2px;
+    background: var(--yellow);
+    transition: all 0.3s ease;
+    transform-origin: center;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(10,10,10,0.97);
+    z-index: 150;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    letter-spacing: 0.15em;
+    color: var(--white);
+    text-decoration: none;
+    padding: 16px 40px;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,215,0,0.08);
+    transition: color 0.2s, background 0.2s;
+  }
+  .mobile-menu a:hover, .mobile-menu a.tab-active { color: var(--yellow); background: rgba(255,215,0,0.05); }
+
+  @media (max-width: 900px) {
+    .hamburger { display: flex; }
+  }
+
 </style>
 </head>
 <body>
@@ -1235,7 +1289,19 @@
     <li><a href="#" onclick="showTab('waitlist',this);return false;" id="tab-btn-waitlist">Waitlist</a></li>
   </ul>
   <div class="nav-tag">EST. 2016</div>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#" onclick="showTab('merch',document.getElementById('tab-btn-merch'));toggleMenu();return false;">Merch</a>
+  <a href="#" onclick="showTab('equipos',document.getElementById('tab-btn-equipos'));toggleMenu();return false;">Equipos</a>
+  <a href="#" onclick="showTab('nosotros',document.getElementById('tab-btn-nosotros'));toggleMenu();return false;">Nosotros</a>
+  <a href="#" onclick="showTab('jugadores',document.getElementById('tab-btn-jugadores'));toggleMenu();return false;">Jugadores</a>
+  <a href="#" onclick="showTab('waitlist',document.getElementById('tab-btn-waitlist'));toggleMenu();return false;">Waitlist</a>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -1842,6 +1908,16 @@ if (navShield) { navShield.src = 'escudo.png'; navShield.style.display = 'block'
 
   // Default: show merch tab on load
   showTab('merch', document.getElementById('tab-btn-merch'));
+
+
+  // HAMBURGER TOGGLE
+  function toggleMenu() {
+    const btn = document.getElementById('hamburger');
+    const menu = document.getElementById('mobileMenu');
+    btn.classList.toggle('open');
+    menu.classList.toggle('open');
+    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+  }
 
 </script>
 </body>
