@@ -1267,6 +1267,108 @@
     .hamburger { display: flex; }
   }
 
+
+  /* NOTIFY POPUP */
+  .notify-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+  }
+  .notify-overlay.open { display: flex; }
+
+  .notify-modal {
+    background: var(--grey);
+    border: 1px solid rgba(255,215,0,0.2);
+    padding: 50px 40px 40px;
+    max-width: 440px;
+    width: 90%;
+    position: relative;
+    animation: fadeUp 0.3s ease both;
+  }
+
+  .notify-modal-close {
+    position: absolute;
+    top: 16px; right: 20px;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.3);
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: color 0.2s;
+    line-height: 1;
+  }
+  .notify-modal-close:hover { color: var(--yellow); }
+
+  .notify-modal-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--yellow);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .notify-modal-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 0.05em;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .notify-modal-product {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    color: var(--yellow);
+    letter-spacing: 0.05em;
+    margin-bottom: 24px;
+  }
+
+  .notify-modal-input {
+    width: 100%;
+    background: var(--black);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--white);
+    padding: 16px 20px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    outline: none;
+    transition: border-color 0.2s;
+    margin-bottom: 2px;
+  }
+  .notify-modal-input:focus { border-color: var(--yellow); }
+  .notify-modal-input::placeholder { color: rgba(255,255,255,0.2); }
+
+  .notify-modal-submit {
+    width: 100%;
+    background: var(--yellow);
+    color: var(--black);
+    border: none;
+    padding: 16px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.2em;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 2px;
+  }
+  .notify-modal-submit:hover { background: var(--white); }
+
+  .notify-modal-note {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.08em;
+    margin-top: 14px;
+    text-align: center;
+  }
+
 </style>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
@@ -1488,7 +1590,7 @@
         </div>
         <div class="merch-price" style="font-size: 1.6rem;">59,99€</div>
       </div>
-      <button class="notify-btn">🔔 Avísame cuando vuelva</button>
+      <button class="notify-btn" onclick="openNotifyModal('CAMISETA 10 ANIVERSARIO')">🔔 Avísame cuando vuelva</button>
     </div>
 
 
@@ -1509,7 +1611,7 @@
         </div>
         <div class="merch-price">79,99€</div>
       </div>
-      <button class="notify-btn">🔔 Avísame cuando vuelva</button>
+      <button class="notify-btn" onclick="openNotifyModal('SUDADERA HOODIE')">🔔 Avísame cuando vuelva</button>
     </div>
 
     <!-- SUÉTER QUARTER ZIP -->
@@ -1529,7 +1631,7 @@
         </div>
         <div class="merch-price">69,99€</div>
       </div>
-      <button class="notify-btn">🔔 Avísame cuando vuelva</button>
+      <button class="notify-btn" onclick="openNotifyModal('SUÉTER QUARTER ZIP')">🔔 Avísame cuando vuelva</button>
     </div>
 
     <!-- PARKA -->
@@ -1549,7 +1651,7 @@
         </div>
         <div class="merch-price">129,99€</div>
       </div>
-      <button class="notify-btn">🔔 Avísame cuando vuelva</button>
+      <button class="notify-btn" onclick="openNotifyModal('PARKA OFICIAL')">🔔 Avísame cuando vuelva</button>
     </div>
 
     <!-- GORRA 10 ANIVERSARIO -->
@@ -1569,7 +1671,7 @@
         </div>
         <div class="merch-price">44,99€</div>
       </div>
-      <button class="notify-btn">🔔 Avísame cuando vuelva</button>
+      <button class="notify-btn" onclick="openNotifyModal('GORRA 10 ANIVERSARIO')">🔔 Avísame cuando vuelva</button>
     </div>
 
     <!-- BALÓN -->
@@ -1589,7 +1691,7 @@
         </div>
         <div class="merch-price">49,99€</div>
       </div>
-      <button class="notify-btn">🔔 Avísame cuando vuelva</button>
+      <button class="notify-btn" onclick="openNotifyModal('BALÓN OFICIAL')">🔔 Avísame cuando vuelva</button>
     </div>
 
     <!-- CALCETINES -->
@@ -1609,7 +1711,7 @@
         </div>
         <div class="merch-price">24,99€</div>
       </div>
-      <button class="notify-btn">🔔 Avísame cuando vuelva</button>
+      <button class="notify-btn" onclick="openNotifyModal('CALCETINES NIKE x PZ')">🔔 Avísame cuando vuelva</button>
     </div>
 
     <!-- MOUSEPAD -->
@@ -1629,7 +1731,7 @@
         </div>
         <div class="merch-price">34,99€</div>
       </div>
-      <button class="notify-btn">🔔 Avísame cuando vuelva</button>
+      <button class="notify-btn" onclick="openNotifyModal('MOUSEPAD XL GAMING')">🔔 Avísame cuando vuelva</button>
     </div>
 
 </div>
@@ -1842,14 +1944,62 @@
     });
   }
 
-  // NOTIFY BUTTONS
-  document.querySelectorAll('.notify-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-      this.textContent = '✦ Te avisamos, colega ✦';
-      this.style.background = 'rgba(255,215,0,0.15)';
-      this.style.color = 'var(--yellow)';
+  // NOTIFY MODAL
+  function openNotifyModal(productName) {
+    document.getElementById('notifyProductName').textContent = productName;
+    document.getElementById('notifyEmail').value = '';
+    const btn = document.getElementById('notifySubmitBtn');
+    btn.textContent = '🔔 AVÍSAME';
+    btn.style.background = '';
+    btn.style.color = '';
+    btn.disabled = false;
+    document.getElementById('notifyOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => document.getElementById('notifyEmail').focus(), 100);
+  }
+
+  function closeNotifyModal(event) {
+    if (event && event.target !== document.getElementById('notifyOverlay')) return;
+    document.getElementById('notifyOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function submitNotify() {
+    const email = document.getElementById('notifyEmail').value.trim();
+    const product = document.getElementById('notifyProductName').textContent;
+    const btn = document.getElementById('notifySubmitBtn');
+
+    if (!email.includes('@')) {
+      document.getElementById('notifyEmail').style.borderColor = '#ff4444';
+      setTimeout(() => document.getElementById('notifyEmail').style.borderColor = '', 1000);
+      return;
+    }
+
+    btn.textContent = 'ENVIANDO...';
+    btn.disabled = true;
+
+    emailjs.send("service_x5td27c", "template_vcia4wg", {
+      email: email,
+      title: product,
+    })
+    .then(() => {
+      btn.textContent = '✦ TE AVISAMOS, CRACK ✦';
+      btn.style.background = '#1a1a1a';
+      btn.style.color = 'var(--yellow)';
+      document.getElementById('notifyEmail').value = '';
+      document.getElementById('notifyEmail').placeholder = 'Ya estás dentro 🔥';
+      setTimeout(() => {
+        document.getElementById('notifyOverlay').classList.remove('open');
+        document.body.style.overflow = '';
+      }, 2000);
+    })
+    .catch(() => {
+      btn.textContent = 'ERROR — INTÉNTALO DE NUEVO';
+      btn.style.background = '#ff4444';
+      btn.style.color = '#fff';
+      btn.disabled = false;
     });
-  });
+  }
 
   // PARALLAX HERO
   window.addEventListener('scroll', () => {
@@ -1946,5 +2096,19 @@ if (navShield) { navShield.src = 'escudo.png'; navShield.style.display = 'block'
   }
 
 </script>
+
+<!-- NOTIFY MODAL -->
+<div class="notify-overlay" id="notifyOverlay" onclick="closeNotifyModal(event)">
+  <div class="notify-modal">
+    <button class="notify-modal-close" onclick="closeNotifyModal()">✕</button>
+    <p class="notify-modal-label">// AVISO DE STOCK</p>
+    <div class="notify-modal-title">TE AVISAMOS</div>
+    <div class="notify-modal-product" id="notifyProductName"></div>
+    <input type="email" class="notify-modal-input" id="notifyEmail" placeholder="tucorreo@ejemplo.com">
+    <button class="notify-modal-submit" id="notifySubmitBtn" onclick="submitNotify()">🔔 AVÍSAME</button>
+    <p class="notify-modal-note">// Sin spam. Solo te escribimos cuando vuelva.</p>
+  </div>
+</div>
+
 </body>
 </html>
