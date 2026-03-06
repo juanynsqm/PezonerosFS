@@ -1268,6 +1268,7 @@
   }
 
 </style>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
 
@@ -1801,19 +1802,44 @@
   }
 
   // WAITLIST
+  // Inicializar EmailJS
+  emailjs.init("pknGlTVpj5Y5HwnyY");
+
   function joinWaitlist() {
     const input = document.querySelector('.waitlist-input');
     const btn = document.querySelector('.waitlist-submit');
-    if (input.value.includes('@')) {
+    const email = input.value.trim();
+
+    if (!email.includes('@')) {
+      input.style.borderColor = '#ff4444';
+      setTimeout(() => input.style.borderColor = '', 1000);
+      return;
+    }
+
+    btn.textContent = 'ENVIANDO...';
+    btn.disabled = true;
+
+    emailjs.send("service_x5td27c", "template_vcia4wg", {
+      email: email,
+    })
+    .then(() => {
       btn.textContent = '✦ EN LISTA ✦';
       btn.style.background = '#333';
       btn.style.color = 'var(--yellow)';
       input.value = '';
       input.placeholder = 'Ya estás dentro 🔥';
-    } else {
-      input.style.borderColor = '#ff4444';
-      setTimeout(() => input.style.borderColor = '', 1000);
-    }
+    })
+    .catch(() => {
+      btn.textContent = 'ERROR — INTÉNTALO DE NUEVO';
+      btn.style.background = '#ff4444';
+      btn.style.color = '#fff';
+      btn.disabled = false;
+      setTimeout(() => {
+        btn.textContent = 'ENTRAR';
+        btn.style.background = '';
+        btn.style.color = '';
+      }, 3000);
+    });
   }
 
   // NOTIFY BUTTONS
